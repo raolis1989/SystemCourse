@@ -36,6 +36,17 @@ namespace WebAPI.SystemCourse.Controllers
             return await _mediator.Send(data);
         }
 
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Edit(int id, Edit.Eject data){
+            data.CourseId=id;
+            return await _mediator.Send(data);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>>Delete(int id){
+            return await _mediator.Send(new Delete.Eject{Id=id});
+        }
+
 
     }
 }
