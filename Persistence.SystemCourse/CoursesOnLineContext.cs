@@ -15,7 +15,7 @@ namespace Persistence.SystemCourse
          }
 
          public DbSet<Comment> Comments { get; set; }
-         public DbSet<Course> Courses { get; set; }
+         public DbSet<Course> Course { get; set; }
          public DbSet<CourseInstructor> CourseInstructors {get;set;}
          public DbSet<Instructor> Instructors {get;set;}
          public DbSet<Price> Prices {get;set;}

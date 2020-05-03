@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.SystemCourse.Interfaces;
+using Application.SystemCourse.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence.SystemCourse;
+
 
 namespace WebAPI.SystemCourse
 {
@@ -30,6 +33,7 @@ namespace WebAPI.SystemCourse
             services.AddDbContext<CoursesOnLineContext>(opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("Conexion"));
             });
+            services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddControllers();
         }
 
