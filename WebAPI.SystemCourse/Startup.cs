@@ -28,7 +28,7 @@ namespace WebAPI.SystemCourse
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CoursesOnLineContext>(opt => {
-                opt.UseSqlServer("");
+                opt.UseSqlServer(Configuration.GetConnectionString("Conexion"));
             });
             services.AddControllers();
         }
