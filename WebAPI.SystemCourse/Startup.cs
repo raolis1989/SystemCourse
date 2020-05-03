@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.SystemCourse.Interfaces;
-using Application.SystemCourse.Repository;
+using Application.SystemCourse.Courses;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,7 +33,7 @@ namespace WebAPI.SystemCourse
             services.AddDbContext<CoursesOnLineContext>(opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("Conexion"));
             });
-            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddMediatR(typeof(Query.Handler).Assembly);
             services.AddControllers();
         }
 

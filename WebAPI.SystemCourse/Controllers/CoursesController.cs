@@ -1,26 +1,41 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.SystemCourse.Interfaces;
+using Application.SystemCourse.Courses;
 using Domain.SystemCourse.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.SystemCourse.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class CoursesController : ControllerBase
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IMediator _mediator;
 
-        public CoursesController(ICourseRepository courseRepository)
+        public CoursesController(IMediator mediator)
         {
-            _courseRepository = courseRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<List<Course>> Get()
+        public async Task<ActionResult<List<Course>>> Get()
         {
-           return  await _courseRepository.ObtainCourses();
+           return await  _mediator.Send(new Query.ListCourses());
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Course>> Detail(int id)
+        {
+            return await _mediator.Send(new QueryId.CourseUnique{Id=id});
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Create(New.Eject data){
+            
+            return await _mediator.Send(data);
+        }
+
+
     }
 }
