@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.SystemCourse.Courses;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence.SystemCourse;
-
+using WebAPI.SystemCourse.Middleware;
 
 namespace WebAPI.SystemCourse
 {
@@ -34,12 +35,13 @@ namespace WebAPI.SystemCourse
                 opt.UseSqlServer(Configuration.GetConnectionString("Conexion"));
             });
             services.AddMediatR(typeof(Query.Handler).Assembly);
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<New>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<HandlerErrorMiddleware>();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

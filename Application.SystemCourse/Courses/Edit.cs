@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Persistence.SystemCourse;
 
@@ -13,6 +14,16 @@ namespace Application.SystemCourse.Courses
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime? DatePublish { get; set; }
+
+            public class EjectValidation : AbstractValidator<Eject>{
+            public EjectValidation(){
+                RuleFor(x=>x.Title).NotEmpty();
+                RuleFor(x=>x.Description).NotEmpty();
+                RuleFor(x=>x.DatePublish).NotEmpty();
+
+            }
+        }
+
 
             public class Handler : IRequestHandler<Eject>
             {

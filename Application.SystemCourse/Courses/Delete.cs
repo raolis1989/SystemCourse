@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.SystemCourse.HandlerError;
 using MediatR;
 using Persistence.SystemCourse;
 
@@ -25,8 +27,9 @@ namespace Application.SystemCourse.Courses
                     var course = await _context.Course.FindAsync(request.Id);
                     if(course==null)
                     {
-                        throw new Exception("No se puede eliminar el curso");
-                    }
+                        //throw new Exception("No se puede eliminar el curso");
+                        throw new HandlerException(HttpStatusCode.NotFound, new {course ="No se encontro el curso"});
+                   }
 
                     _context.Remove(course);
 
@@ -36,7 +39,8 @@ namespace Application.SystemCourse.Courses
                         return Unit.Value;
                     }
 
-                    throw new Exception("No se pudieron guardar los cambios");
+                    //throw new Exception("No se pudieron guardar los cambios");
+                    throw new HandlerException(HttpStatusCode.NotFound, new {course ="No se pudieron guardar los cambios"});
                 }
             }
         }
