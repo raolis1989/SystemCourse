@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.SystemCourse.HandlerError;
 using FluentValidation;
 using MediatR;
 using Persistence.SystemCourse;
@@ -39,7 +41,7 @@ namespace Application.SystemCourse.Courses
                     var course = await _context.Course.FindAsync(request.CourseId);
                      if (course==null)
                      {
-                         throw new Exception("El curso no existe");
+                         throw new HandlerException(HttpStatusCode.NotFound, new {mensaje ="No se encontro el curso"});
                      }
 
                      course.Title = request.Title ?? course.Title;

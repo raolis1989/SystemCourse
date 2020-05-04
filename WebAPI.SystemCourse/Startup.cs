@@ -44,10 +44,10 @@ namespace WebAPI.SystemCourse
             app.UseMiddleware<HandlerErrorMiddleware>();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+               // app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -28,7 +28,7 @@ namespace Application.SystemCourse.Courses
                     if(course==null)
                     {
                         //throw new Exception("No se puede eliminar el curso");
-                        throw new HandlerException(HttpStatusCode.NotFound, new {course ="No se encontro el curso"});
+                        throw new HandlerException(HttpStatusCode.NotFound, new {mensaje ="No se encontro el curso"});
                    }
 
                     _context.Remove(course);
@@ -40,7 +40,7 @@ namespace Application.SystemCourse.Courses
                     }
 
                     //throw new Exception("No se pudieron guardar los cambios");
-                    throw new HandlerException(HttpStatusCode.NotFound, new {course ="No se pudieron guardar los cambios"});
+                    throw new HandlerException(HttpStatusCode.NotFound, new { mensaje = "No se pudieron guardar los cambios"});
                 }
             }
         }

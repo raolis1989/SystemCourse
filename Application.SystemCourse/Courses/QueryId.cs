@@ -1,5 +1,7 @@
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.SystemCourse.HandlerError;
 using Domain.SystemCourse.Entities;
 using MediatR;
 using Persistence.SystemCourse;
@@ -23,7 +25,12 @@ namespace Application.SystemCourse.Courses
 
             public async Task<Course> Handle(CourseUnique request, CancellationToken cancellationToken)
             {
-                return await _context.Course.FindAsync(request.Id);
+
+                var course= await _context.Course.FindAsync(request.Id);
+                if (course==null){
+                     throw new HandlerException(HttpStatusCode.NotFound, new {mensaje ="No se encontro el curso"});
+                }
+                return course;
             }
         }
     }
