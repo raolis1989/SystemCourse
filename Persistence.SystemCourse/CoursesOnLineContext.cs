@@ -1,9 +1,10 @@
 using Domain.SystemCourse.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.SystemCourse
 {
-    public class CoursesOnLineContext : DbContext
+    public class CoursesOnLineContext : IdentityDbContext<User>
     {
         public CoursesOnLineContext(DbContextOptions options): base(options)
         {
@@ -11,13 +12,14 @@ namespace Persistence.SystemCourse
         }
 
          protected override void OnModelCreating(ModelBuilder modelBuilder){
+             base.OnModelCreating(modelBuilder);
              modelBuilder.Entity<CourseInstructor>().HasKey(ci => new { ci.InstructorId, ci.CourseId});
          }
 
-         public DbSet<Comment> Comments { get; set; }
+         public DbSet<Comment> Comment { get; set; }
          public DbSet<Course> Course { get; set; }
-         public DbSet<CourseInstructor> CourseInstructors {get;set;}
-         public DbSet<Instructor> Instructors {get;set;}
-         public DbSet<Price> Prices {get;set;}
+         public DbSet<CourseInstructor> CourseInstructor {get;set;}
+         public DbSet<Instructor> Instructor {get;set;}
+         public DbSet<Price> Price {get;set;}
     }
 }
