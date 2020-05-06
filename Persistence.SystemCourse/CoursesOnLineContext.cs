@@ -14,7 +14,8 @@ namespace Persistence.SystemCourse
          protected override void OnModelCreating(ModelBuilder modelBuilder){
              base.OnModelCreating(modelBuilder);
              modelBuilder.Entity<CourseInstructor>().HasKey(ci => new { ci.InstructorId, ci.CourseId});
-         }
+             
+        }
 
          public DbSet<Comment> Comment { get; set; }
          public DbSet<Course> Course { get; set; }

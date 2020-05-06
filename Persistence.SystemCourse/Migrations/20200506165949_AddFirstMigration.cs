@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.SystemCourse.Migrations
 {
-    public partial class IdentityCoreInitial : Migration
+    public partial class AddFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -209,8 +209,8 @@ namespace Persistence.SystemCourse.Migrations
                 columns: table => new
                 {
                     PriceId = table.Column<Guid>(nullable: false),
-                    PriceActual = table.Column<decimal>(type: "decimal(18,4", nullable: false),
-                    Promotion = table.Column<decimal>(type: "decimal(18,4", nullable: false),
+                    PriceActual = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Promotion = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     CourseId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -228,8 +228,8 @@ namespace Persistence.SystemCourse.Migrations
                 name: "CourseInstructor",
                 columns: table => new
                 {
-                    CourseId = table.Column<Guid>(nullable: false),
-                    InstructorId = table.Column<Guid>(nullable: false)
+                    InstructorId = table.Column<Guid>(nullable: false),
+                    CourseId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

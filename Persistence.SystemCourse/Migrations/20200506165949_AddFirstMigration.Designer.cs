@@ -10,8 +10,8 @@ using Persistence.SystemCourse;
 namespace Persistence.SystemCourse.Migrations
 {
     [DbContext(typeof(CoursesOnLineContext))]
-    [Migration("20200505010211_IdentityCoreInitial")]
-    partial class IdentityCoreInitial
+    [Migration("20200506165949_AddFirstMigration")]
+    partial class AddFirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,10 +117,10 @@ namespace Persistence.SystemCourse.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("PriceActual")
-                        .HasColumnType("decimal(18,4");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("Promotion")
-                        .HasColumnType("decimal(18,4");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("PriceId");
 

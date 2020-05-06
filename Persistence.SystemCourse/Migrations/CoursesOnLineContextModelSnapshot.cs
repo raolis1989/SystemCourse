@@ -115,10 +115,10 @@ namespace Persistence.SystemCourse.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("PriceActual")
-                        .HasColumnType("decimal(18,4");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<decimal>("Promotion")
-                        .HasColumnType("decimal(18,4");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("PriceId");
 
