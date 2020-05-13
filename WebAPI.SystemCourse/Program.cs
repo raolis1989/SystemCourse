@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.SystemCourse.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,8 +22,11 @@ namespace WebAPI.SystemCourse
             using ( var ambient= hostServer.Services.CreateScope()){
                 var services = ambient.ServiceProvider; 
                 try{
+                    var userManager= services.GetRequiredService<UserManager<User>>();   
                     var context = services.GetRequiredService<CoursesOnLineContext>();
                     context.Database.Migrate();
+                    DataTest.InsertData(context, userManager).Wait();
+
                 }
                 catch(Exception e){
                     var logging = services.GetRequiredService<ILogger<Program>>();
