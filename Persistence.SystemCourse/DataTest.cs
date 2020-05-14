@@ -10,7 +10,7 @@ namespace Persistence.SystemCourse
         public static async  Task InsertData(CoursesOnLineContext context, UserManager<User> userManager){
                 if(!userManager.Users.Any()){
                     var user= new User{Name="Raolis", UserName="rmendozab", Email="raolis1989@gmail.com"};
-                    await userManager.CreateAsync(user,"Gatoso1989.");
+                    await userManager.CreateAsync(user,"Password12345.");
                 }
         }
     }
