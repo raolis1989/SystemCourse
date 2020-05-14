@@ -45,7 +45,7 @@ namespace WebAPI.SystemCourse
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<CoursesOnLineContext>();
             identityBuilder.AddSignInManager<SignInManager<User>>();
-            services.TryAddSingleton<ISystemCloc k, SystemClock>();
+            services.TryAddSingleton<ISystemClock, SystemClock>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
