@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.SystemCourse.Contracts;
 using Application.SystemCourse.Courses;
 using Domain.SystemCourse.Entities;
 using FluentValidation.AspNetCore;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence.SystemCourse;
+using Security.SystemCourse.TokenSecurity;
 using WebAPI.SystemCourse.Middleware;
 
 namespace WebAPI.SystemCourse
@@ -46,6 +48,7 @@ namespace WebAPI.SystemCourse
             identityBuilder.AddEntityFrameworkStores<CoursesOnLineContext>();
             identityBuilder.AddSignInManager<SignInManager<User>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
