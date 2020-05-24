@@ -22,7 +22,8 @@ namespace Application.SystemCourse.Courses
             }
             public async Task<List<Course>> Handle(ListCourses request, CancellationToken cancellationToken)
             {
-                return await _context.Course.ToListAsync();
+                return await _context.Course.Include(x=>x.InstructorsLink)
+                                    .ThenInclude(x => x.Instructor).ToListAsync();
             }
         }
     }

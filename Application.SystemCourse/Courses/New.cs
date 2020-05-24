@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace Application.SystemCourse.Courses
             public string Title {get;set;}
             public string Description { get; set; }
             public DateTime? DatePublish { get; set; }
+
+            public List<Guid> ListInstructor { get; set; }
         }
 
         public class EjectValidation : AbstractValidator<Eject>{
@@ -37,12 +40,28 @@ namespace Application.SystemCourse.Courses
 
             public async Task<Unit> Handle(Eject request, CancellationToken cancellationToken)
             {
+                Guid _courseID = Guid.NewGuid();
                 var course = new  Course{
+                     CourseId= _courseID,
                      Title= request.Title,
                      Description = request.Description,
                      DatePublish = request.DatePublish
                 };
                 _context.Course.Add(course);
+
+                if(request.ListInstructor!=null)
+                {
+                    foreach(var id in request.ListInstructor)
+                    {
+                       var courseInstructor = new CourseInstructor
+                        {
+                            CourseId= _courseID, 
+                            InstructorId= id
+                        };
+                        _context.CourseInstructor.Add(courseInstructor);
+                    }
+                }
+
                 var value= await _context.SaveChangesAsync();
                 if(value>0){
                     return Unit.Value;
