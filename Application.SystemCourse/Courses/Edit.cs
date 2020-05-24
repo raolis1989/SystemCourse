@@ -20,6 +20,8 @@ namespace Application.SystemCourse.Courses
             public string Description { get; set; }
             public DateTime? DatePublish { get; set; }
             public List<Guid> ListInstructor { get; set; }
+            public decimal? Price {get;set;}
+            public decimal? Promotion{get;set;}
 
             public class EjectValidation : AbstractValidator<Eject>{
             public EjectValidation(){
@@ -51,6 +53,25 @@ namespace Application.SystemCourse.Courses
                      course.Title = request.Title ?? course.Title;
                      course.Description = request.Description ?? course.Description;
                      course.DatePublish = request.DatePublish ?? course.DatePublish;
+
+                     var priceEntitie = _context.Price.Where(x=>x.CourseId== course.CourseId).FirstOrDefault();
+
+                     if (priceEntitie!=null)
+                     {
+                         priceEntitie.Promotion= request.Promotion ?? priceEntitie.Promotion;
+                         priceEntitie.PriceActual= request.Price ?? priceEntitie.PriceActual;
+                     }
+                     else
+                     {
+                         priceEntitie = new Price 
+                         {
+                             PriceId = Guid.NewGuid(),
+                             PriceActual= request.Price ?? 0,
+                             Promotion= request.Promotion?? 0,
+                             CourseId = course.CourseId
+                         };
+                         await _context.Price.AddAsync(priceEntitie);
+                     }
 
                      if(request.ListInstructor!=null)
                      {
