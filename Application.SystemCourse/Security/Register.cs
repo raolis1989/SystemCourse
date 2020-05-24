@@ -65,7 +65,8 @@ namespace Application.SystemCourse.Security
                 var user = new User
                 {
                     Name =$"{request.Name} {request.LastNames}",
-                    Email= request.Email
+                    Email= request.Email,
+                    UserName= request.Email
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
