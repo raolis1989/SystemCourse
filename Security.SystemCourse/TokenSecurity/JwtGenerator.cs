@@ -17,7 +17,7 @@ namespace Security.SystemCourse.TokenSecurity
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kornator"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
             var credentials= new SigningCredentials (key, SecurityAlgorithms.HmacSha512Signature);
             
             var tokenDescription= new SecurityTokenDescriptor{

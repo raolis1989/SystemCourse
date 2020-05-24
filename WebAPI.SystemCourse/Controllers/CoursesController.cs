@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Application.SystemCourse.Courses;
 using Domain.SystemCourse.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.SystemCourse.Controllers
@@ -13,6 +14,7 @@ namespace WebAPI.SystemCourse.Controllers
     {
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<Course>>> Get()
         {
            return await  Mediator.Send(new Query.ListCourses());

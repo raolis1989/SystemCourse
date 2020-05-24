@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Application.SystemCourse.Contracts;
 using Application.SystemCourse.Courses;
@@ -8,6 +9,7 @@ using Domain.SystemCourse.Entities;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Persistence.SystemCourse;
 using Security.SystemCourse.TokenSecurity;
 using WebAPI.SystemCourse.Middleware;
@@ -49,6 +52,16 @@ namespace WebAPI.SystemCourse
             identityBuilder.AddSignInManager<SignInManager<User>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt=>{
+                opt.TokenValidationParameters= new TokenValidationParameters{
+                    ValidateIssuerSigningKey= true,
+                    IssuerSigningKey= key,
+                    ValidateAudience=false,
+                    ValidateIssuer=false
+
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +76,8 @@ namespace WebAPI.SystemCourse
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

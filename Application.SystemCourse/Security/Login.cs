@@ -1,6 +1,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.SystemCourse.Contracts;
 using Application.SystemCourse.HandlerError;
 using Domain.SystemCourse.Entities;
 using FluentValidation;
@@ -27,10 +28,12 @@ namespace Application.SystemCourse.Security
         {
             private readonly UserManager<User> _userManager;
             private readonly SignInManager<User> _signInManager;
+            private readonly IJwtGenerator _jwtGenerator;
 
-            public Handler (UserManager<User> userManager, SignInManager<User> signInManager){
+            public Handler (UserManager<User> userManager, SignInManager<User> signInManager, IJwtGenerator jwtGenerator){
                 _userManager = userManager;
                 _signInManager = signInManager;
+                _jwtGenerator = jwtGenerator;
             }
             public async Task<UserData> Handle(Eject request, CancellationToken cancellationToken)
             {
@@ -43,7 +46,7 @@ namespace Application.SystemCourse.Security
                 if(result.Succeeded){
                     return new UserData {
                         Name= user.Name,
-                        Token= "esta sera la data del token",
+                        Token= _jwtGenerator.CreateToken(user),
                         UserName = user.UserName,
                         Email=  user.Email,
                         Image= null
