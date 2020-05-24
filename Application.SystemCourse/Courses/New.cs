@@ -19,6 +19,8 @@ namespace Application.SystemCourse.Courses
             public DateTime? DatePublish { get; set; }
 
             public List<Guid> ListInstructor { get; set; }
+            public decimal Price {get;set;}
+            public decimal Promotion {get;set;}
         }
 
         public class EjectValidation : AbstractValidator<Eject>{
@@ -61,6 +63,16 @@ namespace Application.SystemCourse.Courses
                         _context.CourseInstructor.Add(courseInstructor);
                     }
                 }
+
+                var priceEntitie = new Price
+                {
+                    CourseId =_courseID,
+                    PriceActual= request.Price,
+                    Promotion = request.Promotion,
+                    PriceId= Guid.NewGuid()
+                };
+                
+                _context.Price.Add(priceEntitie);
 
                 var value= await _context.SaveChangesAsync();
                 if(value>0){

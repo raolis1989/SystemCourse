@@ -12,5 +12,9 @@ namespace Application.SystemCourse.Courses
         public DateTime? DatePublish { get; set; }
         public Byte[] Picture { get; set; }
         public ICollection<InstructorDto> Instructors { get; set; }
+        public PriceDto Price {get;set;}
+        public ICollection<CommentDto> Comments { get; set; }
+        
+        
     }
 }

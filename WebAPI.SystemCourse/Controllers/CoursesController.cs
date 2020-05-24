@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.SystemCourse.Courses;
@@ -21,7 +22,7 @@ namespace WebAPI.SystemCourse.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> Detail(int id)
+        public async Task<ActionResult<CourseDto>> Detail(Guid id)
         {
             return await Mediator.Send(new QueryId.CourseUnique{Id=id});
         }
@@ -33,13 +34,13 @@ namespace WebAPI.SystemCourse.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(int id, Edit.Eject data){
+        public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Eject data){
             data.CourseId=id;
             return await Mediator.Send(data);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>>Delete(int id){
+        public async Task<ActionResult<Unit>>Delete(Guid id){
             return await Mediator.Send(new Delete.Eject{Id=id});
         }
 

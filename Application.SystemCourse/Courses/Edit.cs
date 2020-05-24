@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.SystemCourse.HandlerError;
+using Domain.SystemCourse.Entities;
 using FluentValidation;
 using MediatR;
 using Persistence.SystemCourse;
@@ -12,10 +15,11 @@ namespace Application.SystemCourse.Courses
     public class Edit
     {
         public class Eject : IRequest {
-            public int CourseId { get; set; }
+            public Guid CourseId { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
             public DateTime? DatePublish { get; set; }
+            public List<Guid> ListInstructor { get; set; }
 
             public class EjectValidation : AbstractValidator<Eject>{
             public EjectValidation(){
@@ -47,6 +51,29 @@ namespace Application.SystemCourse.Courses
                      course.Title = request.Title ?? course.Title;
                      course.Description = request.Description ?? course.Description;
                      course.DatePublish = request.DatePublish ?? course.DatePublish;
+
+                     if(request.ListInstructor!=null)
+                     {
+                         if(request.ListInstructor.Count>0)
+                         {
+                             var instructorsBD = _context.CourseInstructor.Where(x=>x.CourseId == request.CourseId).ToList();
+                             foreach(var instructoEliminar in instructorsBD)
+                             {
+                                 _context.CourseInstructor.Remove(instructoEliminar);
+                             }
+
+                             foreach(var ids in request.ListInstructor)
+                             {
+                                 var newInstructor = new CourseInstructor
+                                 {
+                                     CourseId= request.CourseId,
+                                     InstructorId= ids
+                                 };
+
+                                 _context.CourseInstructor.Add(newInstructor);
+                             }
+                         }
+                     }
                
                      var result = await _context.SaveChangesAsync();
                      

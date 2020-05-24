@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Application.SystemCourse.Courses
     public class Delete
     {
         public class Eject : IRequest {
-            public int Id{get;set;}
+            public Guid Id{get;set;}
 
             public class Handler : IRequestHandler<Eject>
             {
@@ -24,6 +25,14 @@ namespace Application.SystemCourse.Courses
 
                 public async Task<Unit> Handle(Eject request, CancellationToken cancellationToken)
                 {
+                    var instructorsDB =_context.CourseInstructor.Where(x => x.CourseId ==request.Id);
+
+                    foreach(var instructor in instructorsDB)
+                    {
+                        _context.CourseInstructor.Remove(instructor);
+                    }
+
+
                     var course = await _context.Course.FindAsync(request.Id);
                     if(course==null)
                     {
