@@ -23,5 +23,11 @@ namespace WebAPI.SystemCourse.Controllers
              return await Mediator.Send(parameters);
          }
 
+         [HttpGet]
+         public async Task<ActionResult<UserData>> ObtainUser(){
+             
+             return await Mediator.Send(new UserActual.Eject());
+         }
+
     }
 }

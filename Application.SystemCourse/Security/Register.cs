@@ -76,7 +76,8 @@ namespace Application.SystemCourse.Security
                     {
                         Name= user.Name,
                         Token= _jwtGenerator.CreateToken(user),
-                        UserName= user.UserName
+                        UserName= user.UserName,
+                        Email= user.Email
                     };
                 }
 

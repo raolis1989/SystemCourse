@@ -58,6 +58,7 @@ namespace WebAPI.SystemCourse
             identityBuilder.AddSignInManager<SignInManager<User>>();
             services.TryAddSingleton<ISystemClock, SystemClock>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
+            services.AddScoped<IUserSession, UserSession>();
             var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt=>{
                 opt.TokenValidationParameters= new TokenValidationParameters{
