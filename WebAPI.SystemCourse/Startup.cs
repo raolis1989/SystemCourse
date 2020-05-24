@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.SystemCourse.Contracts;
 using Application.SystemCourse.Courses;
+using AutoMapper;
 using Domain.SystemCourse.Entities;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -59,6 +60,8 @@ namespace WebAPI.SystemCourse
             services.TryAddSingleton<ISystemClock, SystemClock>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserSession, UserSession>();
+            services.AddAutoMapper(typeof(Query.Handler));
+
             var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt=>{
                 opt.TokenValidationParameters= new TokenValidationParameters{

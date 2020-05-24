@@ -15,7 +15,7 @@ namespace WebAPI.SystemCourse.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<Course>>> Get()
+        public async Task<ActionResult<List<CourseDto>>> Get()
         {
            return await  Mediator.Send(new Query.ListCourses());
         }
