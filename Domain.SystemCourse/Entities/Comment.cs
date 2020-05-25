@@ -9,6 +9,7 @@ namespace Domain.SystemCourse.Entities
         public int Score { get; set; }
         public string CommentText { get; set; }
         public Guid CourseId { get; set; }
+        public DateTime? DateCration { get; set; }
         public Course Course { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Application.SystemCourse.Courses
         public Byte[] Picture { get; set; }
         public ICollection<InstructorDto> Instructors { get; set; }
         public PriceDto Price {get;set;}
+        public DateTime? DateCreation { get; set; }
         public ICollection<CommentDto> Comments { get; set; }
         
         

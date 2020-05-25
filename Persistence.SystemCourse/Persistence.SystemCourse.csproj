@@ -1,15 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\Domain.SystemCourse\Domain.SystemCourse.csproj"/>
+    <ProjectReference Include="..\Domain.SystemCourse\Domain.SystemCourse.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1"/>
-    <PackageReference Include="Dapper" Version="2.0.35"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pagination\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

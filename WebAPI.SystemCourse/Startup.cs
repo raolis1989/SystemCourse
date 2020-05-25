@@ -25,6 +25,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Persistence.SystemCourse;
 using Persistence.SystemCourse.DapperConection;
 using Persistence.SystemCourse.Instructores;
@@ -78,6 +79,15 @@ namespace WebAPI.SystemCourse
 
                 };
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title="Api Service Manteince of Course",
+                    Version="v1"
+                });
+                c.CustomSchemaIds(c => c.FullName);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,6 +110,12 @@ namespace WebAPI.SystemCourse
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Courses Online v1");
             });
         }
     }

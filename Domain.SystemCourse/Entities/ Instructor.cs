@@ -10,6 +10,7 @@ namespace Domain.SystemCourse.Entities
         public string LastName { get; set; }
         public string Grade { get; set; }
         public byte[] PhotoPerfil { get; set; }
+        public DateTime? DateCreation { get; set; }
 
         public ICollection<CourseInstructor> CoursesLink { get; set; }
     }

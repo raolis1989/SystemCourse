@@ -47,7 +47,8 @@ namespace Application.SystemCourse.Courses
                      CourseId= _courseID,
                      Title= request.Title,
                      Description = request.Description,
-                     DatePublish = request.DatePublish
+                     DatePublish = request.DatePublish,
+                     DateCreation = DateTime.UtcNow
                 };
                 _context.Course.Add(course);
 

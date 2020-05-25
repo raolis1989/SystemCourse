@@ -9,7 +9,8 @@ namespace Application.SystemCourse.Courses
         public string LastName { get; set; }
         public string Grade { get; set; }
         public byte[] PhotoPerfil { get; set; }
+        public DateTime? DateCreation { get; set; }
 
-      
+
     }
 }
