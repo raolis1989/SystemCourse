@@ -26,6 +26,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.SystemCourse;
+using Persistence.SystemCourse.DapperConection;
+using Persistence.SystemCourse.Instructores;
 using Security.SystemCourse.TokenSecurity;
 using WebAPI.SystemCourse.Middleware;
 
@@ -46,6 +48,8 @@ namespace WebAPI.SystemCourse
             services.AddDbContext<CoursesOnLineContext>(opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("Conexion"));
             });
+            services.AddOptions();
+            services.Configure<ConnectionConfiguration>(Configuration.GetSection("ConnectionStrings"));
             services.AddMediatR(typeof(Query.Handler).Assembly);
             
             services.AddControllers(opt =>{
@@ -61,6 +65,8 @@ namespace WebAPI.SystemCourse
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserSession, UserSession>();
             services.AddAutoMapper(typeof(Query.Handler));
+            services.AddTransient<IFactoryConnection, FactoryConnection>();
+            services.AddScoped<IInstructor, InstructorRepository>();
 
             var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt=>{
