@@ -29,6 +29,7 @@ using Microsoft.OpenApi.Models;
 using Persistence.SystemCourse;
 using Persistence.SystemCourse.DapperConection;
 using Persistence.SystemCourse.Instructores;
+using Persistence.SystemCourse.Pagination;
 using Security.SystemCourse.TokenSecurity;
 using WebAPI.SystemCourse.Middleware;
 
@@ -68,6 +69,7 @@ namespace WebAPI.SystemCourse
             services.AddAutoMapper(typeof(Query.Handler));
             services.AddTransient<IFactoryConnection, FactoryConnection>();
             services.AddScoped<IInstructor, InstructorRepository>();
+            services.AddScoped<IPagination, PaginationRepository>(); 
 
             var key= new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt=>{
