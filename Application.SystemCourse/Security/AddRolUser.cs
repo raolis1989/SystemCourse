@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.SystemCourse.Security
 {
-    public class UserRolAdd
+    public class AddRolUser
     {
         public class Eject : IRequest
         {
@@ -32,9 +32,9 @@ namespace Application.SystemCourse.Security
         public class Handler : IRequestHandler<Eject>
         {
             private readonly UserManager<User> _userManager;
-            private readonly RoleManager<Identityrole> _roleManager;
+            private readonly RoleManager<IdentityRole> _roleManager;
 
-            public Handler (UserManager<User> userManager, RoleManager<Identityrole> roleManager)
+            public Handler (UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
             {
                 _userManager = userManager;
                 _roleManager = roleManager;
@@ -48,13 +48,13 @@ namespace Application.SystemCourse.Security
                     throw new HandlerException(HttpStatusCode.NotFound, new { messaje = "Rol Not Exist" });
                 }
 
-                var userToken = await _userManager.FindByNameAsync(request.RolName);
-                if(userToken==null)
+                var userIden = await _userManager.FindByNameAsync(request.UserName);
+                if(userIden==null)
                 {
                     throw new HandlerException(HttpStatusCode.NotFound, new { messaje = "User Not Exist" });
                 }
 
-                var result = await _userManager.AddToRoleAsync(userToken, request.RolName);
+                var result = await _userManager.AddToRoleAsync(userIden, request.RolName);
                 if (result.Succeeded)
                 {
                     return Unit.Value;

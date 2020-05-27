@@ -29,5 +29,23 @@ namespace WebAPI.SystemCourse.Controllers
             return await Mediator.Send(new ListRol.Eject());
         }
 
+        [HttpPost("AddRolUser")]
+        public async Task<ActionResult<Unit>> AddRolUser(AddRolUser.Eject paramaters)
+        {
+            return await Mediator.Send(paramaters);
+        }
+
+        [HttpPut("DeleteRolUser")]
+        public async Task<ActionResult<Unit>> DeleteRolUser(DeleteRolUser.Eject paramaters)
+        {
+            return await Mediator.Send(paramaters);
+        }
+
+        [HttpGet("ObtainRolesUser")]
+        public async Task<ActionResult<List<string>>> ObtainRolesUser(string username)
+        {
+            return await Mediator.Send(new ObtainRolesForUser.Eject { UserName = username });
+        }
+
     }
 }
