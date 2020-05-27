@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.SystemCourse.Instructores;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistence.SystemCourse.Instructores;
 
@@ -10,6 +11,7 @@ namespace WebAPI.SystemCourse.Controllers
 {
     public class InstructorController : GenericControllerBase
     {
+        [Authorize(Roles="Admin")]
         [HttpGet]
         public async Task<ActionResult<List<InstructorModel>>> Obtaininstructors()
         {

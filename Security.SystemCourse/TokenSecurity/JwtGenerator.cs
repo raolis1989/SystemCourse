@@ -11,11 +11,19 @@ namespace Security.SystemCourse.TokenSecurity
 {
     public class JwtGenerator : IJwtGenerator
     {
-        public string CreateToken(User user)
+        public string CreateToken(User user, List<string> roles)
         {
             var claims = new List<Claim>{
                 new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
             };
+
+            if (roles != null)
+            {
+                foreach(var rol in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, rol)); 
+                }
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("1234567890 a very long word"));
             var credentials= new SigningCredentials (key, SecurityAlgorithms.HmacSha512Signature);

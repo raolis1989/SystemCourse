@@ -75,7 +75,7 @@ namespace Application.SystemCourse.Security
                     return new UserData
                     {
                         Name= user.Name,
-                        Token= _jwtGenerator.CreateToken(user),
+                        Token= _jwtGenerator.CreateToken(user, null),
                         UserName= user.UserName,
                         Email= user.Email
                     };
