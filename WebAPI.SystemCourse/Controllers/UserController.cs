@@ -29,5 +29,11 @@ namespace WebAPI.SystemCourse.Controllers
              return await Mediator.Send(new UserActual.Eject());
          }
 
+        [HttpPut]
+        public async Task<UserData>Update(UserUpdate.Eject paramaters)
+        {
+            return await Mediator.Send(paramaters);
+        }
+
     }
 }
